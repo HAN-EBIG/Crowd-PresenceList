@@ -25,7 +25,7 @@ def influx_handler(room, registrationTime, numPeople):
         'time': registrationTime,
     }
     series.append(datapackage)
-    client = InfluxDBClient('145.74.104.50', 8086, 'sensorcontroller', 'Xqg2dHfWZzTtRVGub4hLcjFu296heR3W', 'ebig')
+    client = InfluxDBClient('145.74.104.50', 8086, 'sensorcontroller', '@password@', 'ebig')
     client.write_points(series)
 
 room_dict = {'D104': 'R26-D-1.04',
