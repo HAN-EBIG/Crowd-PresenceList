@@ -54,7 +54,7 @@ urlretrieve (url, currentDate)
 
 with open(currentDate, "r") as inFile:
     for line in inFile:
-        if(line == '\r\n'):
+        if(line.split(";").__len__() <= 7):
             continue
         room = line.split(";")[2]
         registrationTime = line.split(";")[5]
@@ -64,4 +64,5 @@ with open(currentDate, "r") as inFile:
 
         datetime_local = local_tz.localize(datetime.datetime.strptime(dateFormatted, '%Y-%m-%dT%H:%M:%SZ'),is_dst=None)
         datetime_utc = datetime_local.astimezone(pytz.utc)
+        print(datetime_utc)
         influx_handler(room_dict[room], datetime_utc, numPresent + numTooLate)
