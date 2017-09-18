@@ -1,8 +1,16 @@
 from influxdb import InfluxDBClient
 import datetime
-import urllib
 import arrow
 import pytz
+import sys
+
+if sys.version_info[0] >= 3:
+    from urllib.request import urlretrieve
+else:
+    # Not Python 3 - today, it is most likely to be Python 2
+    # But note that this might need an update when Python 4
+    # might be around one day
+    from urllib import urlretrieve
 
 def influx_handler(room, registrationTime, numPeople):
     series = []
@@ -17,7 +25,7 @@ def influx_handler(room, registrationTime, numPeople):
         'time': registrationTime,
     }
     series.append(datapackage)
-    client = InfluxDBClient('145.74.104.50', 8086, 'sensorcontroller', '@password@', 'ebig')
+    client = InfluxDBClient('145.74.104.50', 8086, 'sensorcontroller', 'Xqg2dHfWZzTtRVGub4hLcjFu296heR3W', 'ebig')
     client.write_points(series)
 
 room_dict = {'D104': 'R26-D-1.04',
@@ -31,7 +39,7 @@ local_tz = pytz.timezone('Europe/Amsterdam')
 
 print("Importing presence list for %s" % currentDate)
 url = "http://sascalendar.han.nl/getrss.aspx?id=audfp&type=UWE_AWR_HTML:" + currentDate
-urllib.urlretrieve (url, currentDate)
+urlretrieve (url, currentDate)
 
 
 # 0: AanwezigheidsregistratieID;
