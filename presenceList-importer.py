@@ -31,7 +31,6 @@ def readExistingPresenceItems(registrationDate):
     if existingPresenceFile.is_file():
         with open(registrationDate, "r") as inFile:
             for line in inFile:
-                print("Existing line: %s" %line)
                 tuples = line.split(";")
                 if(tuples.__len__() <= 7):
                     continue
